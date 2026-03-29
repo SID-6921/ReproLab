@@ -176,6 +176,7 @@ This writes files to [outputs/preliminary_data](outputs/preliminary_data), inclu
 - [outputs/preliminary_data/preliminary_report.md](outputs/preliminary_data/preliminary_report.md)
 - [outputs/preliminary_data/preliminary_metrics.csv](outputs/preliminary_data/preliminary_metrics.csv)
 - [outputs/preliminary_data/transformation_log.csv](outputs/preliminary_data/transformation_log.csv)
+- [docs/preliminary_results_specific_aims.md](docs/preliminary_results_specific_aims.md)
 
 The package is designed to directly support Specific Aims with evidence for:
 
