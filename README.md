@@ -46,3 +46,17 @@ print(result.transformation_log.head())
 ```
 
 See [examples/sample_usage.py](examples/sample_usage.py) for a fuller workflow including benchmark simulation.
+
+## License
+
+This repository uses a proprietary, all-rights-reserved license. Reuse, copying,
+modification, or distribution is not permitted without written permission from the
+copyright holder.
+
+See [LICENSE](LICENSE).
+
+## Citation
+
+If permission is granted for use, citation is required.
+
+Citation metadata is provided in [CITATION.cff](CITATION.cff).
