@@ -163,6 +163,27 @@ Benchmark output includes:
 - residual_errors
 - preprocessing_time_sec
 
+## Preliminary Data Package (Grant Support)
+
+Generate grant-aligned preliminary outputs with:
+
+```bash
+python examples/generate_preliminary_data.py
+```
+
+This writes files to [outputs/preliminary_data](outputs/preliminary_data), including:
+
+- [outputs/preliminary_data/preliminary_report.md](outputs/preliminary_data/preliminary_report.md)
+- [outputs/preliminary_data/preliminary_metrics.csv](outputs/preliminary_data/preliminary_metrics.csv)
+- [outputs/preliminary_data/transformation_log.csv](outputs/preliminary_data/transformation_log.csv)
+
+The package is designed to directly support Specific Aims with evidence for:
+
+- missingness/inconsistency reduction
+- overall data quality improvement
+- estimated cleaning time savings
+- downstream summary-statistic stability after preprocessing
+
 ## Extending Constraints
 
 To add your own rules, implement the base clinical constraint interface in [src/reprolab/constraints/base.py](src/reprolab/constraints/base.py) and pass custom constraints to the pipeline constructor.

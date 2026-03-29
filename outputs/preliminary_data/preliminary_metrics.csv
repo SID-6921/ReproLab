@@ -1,0 +1,13 @@
+metric,value
+missing_ratio_before,0.0177
+missing_ratio_after,0.0
+inconsistencies_before,315.0
+inconsistencies_after,72.0
+quality_score_before,0.7823
+quality_score_after,0.952
+bootstrap_sd_mean_glucose_before,2.5583
+bootstrap_sd_mean_glucose_after,2.1544
+manual_runtime_seconds,0.0059
+reprolab_runtime_seconds,0.0398
+estimated_manual_effort_seconds,6300.0
+estimated_time_savings_percent,100.0
