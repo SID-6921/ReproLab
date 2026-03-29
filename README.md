@@ -64,7 +64,7 @@ pip install -e .[dev]
 3. Run tests:
 
 ```bash
-pytest
+python -m pytest
 ```
 
 4. Run the sample workflow:
@@ -188,10 +188,23 @@ Reference implementations:
 - Re-run: pip install -e .[dev]
 
 2. Tests not discovered
-- Run from repository root and execute: pytest
+- Run from repository root and execute: python -m pytest
 
 3. Different outputs across runs
 - Ensure same input data and same simulator seed
+
+## Reproducible Environments
+
+For stricter environment reproducibility, install pinned dependencies from [requirements-lock.txt](requirements-lock.txt):
+
+```bash
+python -m pip install -r requirements-lock.txt
+python -m pip install -e .
+```
+
+## Contributing
+
+Contribution workflow and PR checklist are documented in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

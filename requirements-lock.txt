@@ -1,0 +1,17 @@
+# ReproLab reproducibility lock file
+# Generated from validated local environment on 2026-03-29.
+# Use with: python -m pip install -r requirements-lock.txt
+
+numpy==2.4.1
+pandas==2.3.3
+python-dateutil==2.9.0.post0
+pytz==2025.2
+tzdata==2025.3
+
+pytest==9.0.2
+colorama==0.4.6
+iniconfig==2.3.0
+packaging==25.0
+pluggy==1.6.0
+Pygments==2.19.2
+six==1.17.0
