@@ -178,6 +178,14 @@ If some columns are missing, relevant rules are skipped safely.
 - `cleaned_data` (`pandas.DataFrame`)
 - `transformation_log` (`pandas.DataFrame`)
 - `lineage_history` (`list[dict[str, str]]`)
+- `reproducibility_score` (`dict[str, float | int]`)
+
+`reproducibility_score` includes:
+
+- `overall` (`0-100`)
+- `metadata_completeness` (`0-100`)
+- `reagent_traceability` (`0-100`)
+- `step_granularity` (`0-100`)
 
 Each transformation-log record includes:
 

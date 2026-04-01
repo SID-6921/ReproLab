@@ -12,6 +12,7 @@ from .lineage.logger import TransformationLogger
 from .lineage.tracker import LineageTracker
 from .models import CorrectionRecord
 from .preprocessing import DataPreprocessor, PreprocessingConfig
+from .scoring import ReproducibilityScorer
 from .validation.engine import ValidationEngine
 
 LOGGER = logging.getLogger(__name__)
@@ -24,6 +25,7 @@ class PipelineResult:
     cleaned_data: pd.DataFrame
     transformation_log: pd.DataFrame
     lineage_history: list[dict[str, str]]
+    reproducibility_score: dict[str, float | int]
 
 
 class ReproLabPipeline:
@@ -38,6 +40,7 @@ class ReproLabPipeline:
         self.validator = ValidationEngine(constraints)
         self.transform_logger = TransformationLogger()
         self.lineage = LineageTracker()
+        self.scorer = ReproducibilityScorer()
 
     def run(self, df: pd.DataFrame) -> PipelineResult:
         """Run ReproLab pipeline deterministically and return full outputs."""
@@ -51,10 +54,14 @@ class ReproLabPipeline:
             preprocessed, validated, "clinical_validation", "1.0.0", val_logs
         )
 
+        log_frame = self.transform_logger.to_frame()
+        score = self.scorer.score(validated, log_frame)
+
         return PipelineResult(
             cleaned_data=validated,
-            transformation_log=self.transform_logger.to_frame(),
+            transformation_log=log_frame,
             lineage_history=self.lineage.history(),
+            reproducibility_score=score.as_dict(),
         )
 
     def export_logs(self, json_path: str, csv_path: str) -> None:
