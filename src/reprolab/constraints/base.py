@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any
 
@@ -27,11 +28,11 @@ class ConstraintResult:
     candidates: list[CandidateCorrection]
 
 
-class ClinicalConstraint:
+class ClinicalConstraint(ABC):
     """Abstract clinical constraint interface."""
 
     name: str = "base_constraint"
 
+    @abstractmethod
     def apply(self, df: pd.DataFrame) -> ConstraintResult:
         """Generate correction candidates for the provided dataset."""
-        raise NotImplementedError

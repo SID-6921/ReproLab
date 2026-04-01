@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import Any, Optional
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -40,11 +40,3 @@ class LineageRecord:
         """Return an ISO timestamp in UTC."""
         return datetime.now(timezone.utc).isoformat()
 
-
-@dataclass(frozen=True)
-class ValidationDecision:
-    """Describes the outcome of a candidate correction."""
-
-    accepted_value: Any
-    confidence: float
-    conflict_with: Optional[str] = None
