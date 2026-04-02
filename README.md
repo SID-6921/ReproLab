@@ -1,33 +1,86 @@
 # ReproLab
 
-ReproLab is a Python package for reproducible biomedical data preprocessing with:
+ReproLab is a full-stack platform for scientific protocol reproducibility. It combines:
 
-- deterministic preprocessing
-- clinically constrained validation
-- explainable transformation logging
-- deterministic lineage tracking
+**Backend (Python):**
+- Automated constraint-based validation
+- Deterministic preprocessing pipeline
+- Explainable transformation logging
+- Automated reproducibility scoring (0-100 scale)
+- Institutional lineage tracking with cryptographic hashing
 
-This guide is implementation-focused so a new contributor can set up, run, extend, and validate the project quickly.
+**Frontend (React + Supabase):**
+- Protocol editor with live reproducibility scoring
+- Dashboard for protocol management
+- Multi-tenant SaaS architecture
+- Real-time score feedback as users edit
+
+## Monorepo Structure
+
+```
+ReproLab/
+├── src/reprolab/           # Python backend (main package)
+│   ├── pipeline.py
+│   ├── preprocessing.py
+│   ├── validation.py
+│   ├── lineage.py
+│   └── scoring.py          # NEW: Reproducibility scoring
+├── tests/                  # Python tests
+├── api/                    # NEW: FastAPI wrapper
+│   ├── main.py
+│   ├── requirements.txt
+│   └── README.md
+└── frontend/               # NEW: React + Supabase
+    ├── src/
+    ├── package.json
+    ├── vite.config.js
+    └── README.md
+```
+
+## Quick Start (Full Stack)
+
+### Backend API
+```bash
+cd api
+pip install -r requirements.txt
+python main.py
+# API runs on http://localhost:8000
+```
+
+### Frontend UI
+```bash
+cd frontend
+npm install
+npm run dev
+# Frontend runs on http://localhost:5173
+```
+
+Then configure your Supabase project in `frontend/.env.local`.
+
+---
 
 ## Table of Contents
 
-- [What It Does](#what-it-does)
-- [Requirements](#requirements)
-- [Quick Start](#quick-start)
-- [Implementation Workflow](#implementation-workflow)
-- [Minimal Usage](#minimal-usage)
+### Backend
+- [Backend Requirements](#backend-requirements)
+- [Backend Quick Start](#backend-quick-start)
 - [Input Contract](#input-contract)
 - [Output Contract](#output-contract)
-- [Benchmarking and Simulation](#benchmarking-and-simulation)
+
+### Frontend & API
+- [Frontend Requirements](#frontend-requirements)
+- [Frontend Quick Start](#frontend-quick-start)
+- [API Documentation](./api/README.md)
+- [Frontend Architecture](./frontend/README.md)
+
+### Development
+- [Implementation Workflow](#implementation-workflow)
 - [Extending Constraints](#extending-constraints)
 - [Project Structure](#project-structure)
-- [Troubleshooting](#troubleshooting)
-- [Reproducible Environments](#reproducible-environments)
 - [Contributing](#contributing)
 - [License](#license)
-- [Citation](#citation)
 
-## What It Does
+## What The Backend Does
 
 ReproLab combines six capabilities:
 
