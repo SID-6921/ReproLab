@@ -135,7 +135,8 @@ def main():
         },
     }
 
-    out_path = Path("geo_benchmark_results.json")
+    out_path = Path("results/benchmarks/geo_benchmark_results.json")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(results, indent=2), encoding="utf-8")
     print(json.dumps(results, indent=2))
     print(f"Saved results to: {out_path.resolve()}")

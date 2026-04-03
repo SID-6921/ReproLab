@@ -123,8 +123,8 @@ def save_top(df: pd.DataFrame, out_csv: Path, n=25):
 
 
 def main():
-    out_dir = Path("analysis_outputs")
-    out_dir.mkdir(exist_ok=True)
+    out_dir = Path("results/top_genes")
+    out_dir.mkdir(parents=True, exist_ok=True)
     cache_dir = Path(".geo_cache")
     cache_dir.mkdir(exist_ok=True)
 
@@ -219,7 +219,8 @@ def main():
         ],
     }
 
-    out_json = Path("geo_benchmark_strict_results.json")
+    out_json = Path("results/benchmarks/geo_benchmark_strict_results.json")
+    out_json.parent.mkdir(parents=True, exist_ok=True)
     out_json.write_text(json.dumps(results, indent=2), encoding="utf-8")
     print(json.dumps(results, indent=2))
     print(f"Saved strict results to: {out_json.resolve()}")

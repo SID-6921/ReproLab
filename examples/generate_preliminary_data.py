@@ -14,7 +14,7 @@ import pandas as pd
 from reprolab.constraints.clinical_rules import default_clinical_constraints
 from reprolab.pipeline import ReproLabPipeline
 
-OUTPUT_DIR = Path("outputs/preliminary_data")
+OUTPUT_DIR = Path("results/preliminary")
 
 
 def make_clean_dataset(n: int = 600, seed: int = 11) -> pd.DataFrame:

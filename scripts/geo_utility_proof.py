@@ -144,8 +144,8 @@ def aggregate_metrics(rows):
 def main():
     cache_dir = Path(".geo_cache")
     cache_dir.mkdir(exist_ok=True)
-    out_dir = Path("analysis_outputs")
-    out_dir.mkdir(exist_ok=True)
+    out_dir = Path("results/robustness")
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     rng = np.random.default_rng(42)
     n_runs = 10
@@ -216,7 +216,8 @@ def main():
         per_run_tables[f"GSE3037_{scenario_name}_baseline"] = pd.DataFrame(g2_base_rows)
         per_run_tables[f"GSE3037_{scenario_name}_cleaned"] = pd.DataFrame(g2_clean_rows)
 
-    out_json = Path("utility_proof_results.json")
+    out_json = Path("results/benchmarks/utility_proof_results.json")
+    out_json.parent.mkdir(parents=True, exist_ok=True)
     out_json.write_text(json.dumps(results, indent=2), encoding="utf-8")
 
     # Save per-run metrics for auditability.
