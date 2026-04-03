@@ -19,22 +19,41 @@ ReproLab is a full-stack platform for scientific protocol reproducibility. It co
 
 ```
 ReproLab/
-├── src/reprolab/           # Python backend (main package)
-│   ├── pipeline.py
-│   ├── preprocessing.py
-│   ├── validation.py
-│   ├── lineage.py
-│   └── scoring.py          # NEW: Reproducibility scoring
-├── tests/                  # Python tests
-├── api/                    # NEW: FastAPI wrapper
+├── .github/                            # CI workflows
+├── analysis_outputs/                   # Temporary benchmark output CSVs
+├── api/                                # FastAPI wrapper
 │   ├── main.py
 │   ├── requirements.txt
 │   └── README.md
-└── frontend/               # NEW: React + Supabase
-    ├── src/
-    ├── package.json
-    ├── vite.config.js
-    └── README.md
+├── docs/                               # Documentation assets
+├── examples/                           # Runnable examples and data generation
+├── frontend/                           # React + Supabase web app
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── store/
+│   │   └── lib/
+│   ├── package.json
+│   ├── vite.config.js
+│   └── README.md
+├── outputs/                            # Generated output artifacts
+├── reports/                            # Team-facing benchmark summaries
+├── scripts/                            # GEO benchmark scripts
+├── src/reprolab/                       # Python package
+│   ├── constraints/
+│   ├── lineage/
+│   ├── simulation/
+│   ├── validation/
+│   ├── pipeline.py
+│   ├── preprocessing.py
+│   ├── scoring.py
+│   └── models.py
+├── tests/                              # Test suite
+├── geo_benchmark_results.json          # Quick benchmark result snapshot
+├── geo_benchmark_strict_results.json   # Strict benchmark result snapshot
+├── pyproject.toml
+└── README.md
 ```
 
 ## Quick Start (Full Stack)
