@@ -20,12 +20,11 @@ ReproLab is a full-stack platform for scientific protocol reproducibility. It co
 ```
 ReproLab/
 ├── .github/                            # CI workflows
-├── analysis_outputs/                   # Temporary benchmark output CSVs
 ├── api/                                # FastAPI wrapper
 │   ├── main.py
 │   ├── requirements.txt
 │   └── README.md
-├── docs/                               # Documentation assets
+├── docs/                               # Documentation, reports, and analysis notes
 ├── examples/                           # Runnable examples and data generation
 ├── frontend/                           # React + Supabase web app
 │   ├── src/
@@ -37,9 +36,12 @@ ReproLab/
 │   ├── package.json
 │   ├── vite.config.js
 │   └── README.md
-├── outputs/                            # Generated output artifacts
-├── reports/                            # Team-facing benchmark summaries
-├── scripts/                            # GEO benchmark scripts
+├── results/
+│   ├── benchmarks/                     # JSON result snapshots from all benchmark runs
+│   ├── top_genes/                      # Top differentially expressed gene CSVs
+│   ├── robustness/                     # Per-run utility-proof stress-test CSVs
+│   └── preliminary/                    # Grant-aligned preliminary data outputs
+├── scripts/                            # GEO benchmark and analysis scripts
 ├── src/reprolab/                       # Python package
 │   ├── constraints/
 │   ├── lineage/
@@ -50,8 +52,6 @@ ReproLab/
 │   ├── scoring.py
 │   └── models.py
 ├── tests/                              # Test suite
-├── geo_benchmark_results.json          # Quick benchmark result snapshot
-├── geo_benchmark_strict_results.json   # Strict benchmark result snapshot
 ├── pyproject.toml
 └── README.md
 ```
@@ -297,11 +297,11 @@ Generate grant-aligned outputs:
 python examples/generate_preliminary_data.py
 ```
 
-This writes to [outputs/preliminary_data](outputs/preliminary_data), including:
+This writes to [results/preliminary](results/preliminary), including:
 
-- [outputs/preliminary_data/preliminary_report.md](outputs/preliminary_data/preliminary_report.md)
-- [outputs/preliminary_data/preliminary_metrics.csv](outputs/preliminary_data/preliminary_metrics.csv)
-- [outputs/preliminary_data/transformation_log.csv](outputs/preliminary_data/transformation_log.csv)
+- [results/preliminary/preliminary_report.md](results/preliminary/preliminary_report.md)
+- [results/preliminary/preliminary_metrics.csv](results/preliminary/preliminary_metrics.csv)
+- [results/preliminary/transformation_log.csv](results/preliminary/transformation_log.csv)
 - [docs/preliminary_results_specific_aims.md](docs/preliminary_results_specific_aims.md)
 
 ## Extending Constraints
