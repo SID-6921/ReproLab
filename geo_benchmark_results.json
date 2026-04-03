@@ -1,0 +1,52 @@
+{
+  "GSE32707": {
+    "geo_samples_total": 144,
+    "expr_shape": [
+      47220,
+      144
+    ],
+    "missing_rate": 0.0,
+    "labeled_group_counts": {
+      "ards|day0": 18,
+      "ards|day7": 13,
+      "control|nan": 34,
+      "sepsis|day0": 30,
+      "sepsis|day7": 28,
+      "sirs|day0": 21
+    },
+    "contrast": {
+      "name": "ARDS_day0_vs_untreated_day0",
+      "n_ards": 18,
+      "n_control": 34,
+      "deg_adj_p_lt_0_05_lfc_ge_1": 4491,
+      "deg_raw_p_lt_0_05_lfc_ge_1": 8944
+    }
+  },
+  "GSE3037": {
+    "geo_samples_total": 24,
+    "expr_shape": [
+      22283,
+      24
+    ],
+    "missing_rate": 3.7397717243339466e-06,
+    "labeled_group_counts": {
+      "control": 8,
+      "hmgb1": 8,
+      "lps": 8
+    },
+    "contrasts": {
+      "LPS_vs_control": {
+        "n_lps": 8,
+        "n_control": 8,
+        "deg_adj_p_lt_0_05_lfc_ge_1": 0,
+        "deg_raw_p_lt_0_05_lfc_ge_1": 117
+      },
+      "HMGB1_vs_control": {
+        "n_hmgb1": 8,
+        "n_control": 8,
+        "deg_adj_p_lt_0_05_lfc_ge_1": 0,
+        "deg_raw_p_lt_0_05_lfc_ge_1": 38
+      }
+    }
+  }
+}
