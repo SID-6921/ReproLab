@@ -1,0 +1,60 @@
+{
+  "GSE32707_strict": {
+    "geo_samples_total": 144,
+    "gene_level_shape": [
+      31324,
+      144
+    ],
+    "contrast": {
+      "name": "ARDS_day0_vs_all_untreated_controls",
+      "n_ards": 18,
+      "n_control": 34,
+      "deg_adj_p_lt_0_05_lfc_ge_1": 3424,
+      "deg_raw_p_lt_0_05_lfc_ge_1": 6178
+    },
+    "top_genes_file": "analysis_outputs/GSE32707_top_genes.csv"
+  },
+  "GSE3037_strict": {
+    "geo_samples_total": 24,
+    "gene_level_shape": [
+      14207,
+      24
+    ],
+    "paired_contrasts": {
+      "LPS_vs_control": {
+        "paired_patients": [
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "12",
+          "15",
+          "19"
+        ],
+        "n_pairs": 8,
+        "deg_adj_p_lt_0_05_lfc_ge_1": 0,
+        "deg_raw_p_lt_0_05_lfc_ge_1": 499
+      },
+      "HMGB1_vs_control": {
+        "paired_patients": [
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "12",
+          "15",
+          "19"
+        ],
+        "n_pairs": 8,
+        "deg_adj_p_lt_0_05_lfc_ge_1": 0,
+        "deg_raw_p_lt_0_05_lfc_ge_1": 215
+      }
+    },
+    "top_genes_files": [
+      "analysis_outputs/GSE3037_LPS_vs_control_top_genes.csv",
+      "analysis_outputs/GSE3037_HMGB1_vs_control_top_genes.csv"
+    ]
+  }
+}
