@@ -1,0 +1,81 @@
+{
+  "experiment": {
+    "n_runs": 10,
+    "scenarios": {
+      "mixed_noise": {
+        "missing_rate": 0.03,
+        "gaussian_noise_rate": 0.1,
+        "outlier_rate": 0.01
+      },
+      "high_missingness": {
+        "missing_rate": 0.25,
+        "gaussian_noise_rate": 0.0,
+        "outlier_rate": 0.0
+      }
+    }
+  },
+  "GSE32707_reference_sig_count_fdr": 3424,
+  "GSE3037_reference_sig_count_raw": 499,
+  "scenario_results": {
+    "mixed_noise": {
+      "GSE32707": {
+        "baseline": {
+          "mean_spearman_log2fc": 0.9850779840787697,
+          "mean_jaccard_significant": 0.917232315220159,
+          "mean_abs_sig_count_delta": 93.4,
+          "mean_test_sig_count": 3330.6
+        },
+        "cleaned": {
+          "mean_spearman_log2fc": 0.9849059962772833,
+          "mean_jaccard_significant": 0.9142438435063399,
+          "mean_abs_sig_count_delta": 104.5,
+          "mean_test_sig_count": 3319.5
+        }
+      },
+      "GSE3037": {
+        "baseline": {
+          "mean_spearman_log2fc": 0.8796289231547612,
+          "mean_jaccard_significant": 0.7369953725170918,
+          "mean_abs_sig_count_delta": 14.1,
+          "mean_test_sig_count": 485.5
+        },
+        "cleaned": {
+          "mean_spearman_log2fc": 0.8575426982218799,
+          "mean_jaccard_significant": 0.7162110897870468,
+          "mean_abs_sig_count_delta": 18.7,
+          "mean_test_sig_count": 480.3
+        }
+      }
+    },
+    "high_missingness": {
+      "GSE32707": {
+        "baseline": {
+          "mean_spearman_log2fc": 0.883884119763921,
+          "mean_jaccard_significant": 0.5109077691188488,
+          "mean_abs_sig_count_delta": 1434.0,
+          "mean_test_sig_count": 1990.0
+        },
+        "cleaned": {
+          "mean_spearman_log2fc": 0.8836912157464841,
+          "mean_jaccard_significant": 0.4460653154202183,
+          "mean_abs_sig_count_delta": 1698.6,
+          "mean_test_sig_count": 1725.4
+        }
+      },
+      "GSE3037": {
+        "baseline": {
+          "mean_spearman_log2fc": 0.7024618967407397,
+          "mean_jaccard_significant": 0.25287495034966934,
+          "mean_abs_sig_count_delta": 194.5,
+          "mean_test_sig_count": 304.5
+        },
+        "cleaned": {
+          "mean_spearman_log2fc": 0.6384907721592009,
+          "mean_jaccard_significant": 0.2530903971500117,
+          "mean_abs_sig_count_delta": 203.5,
+          "mean_test_sig_count": 295.5
+        }
+      }
+    }
+  }
+}
