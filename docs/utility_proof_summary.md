@@ -1,49 +1,62 @@
-# Utility Proof Summary (GSE32707 vs GSE3037)
+# Utility Proof Summary (Expanded Follow-Up)
 
 ## Goal
 
-Evaluate whether our processing logic improves robustness versus a baseline when data are corrupted.
+Evaluate whether ReproLab does more than separate strong datasets from weak ones by testing whether preprocessing choices improve robustness under controlled corruption.
 
 ## Method
 
-- Script: scripts/geo_utility_proof.py
-- Data: GSE32707 (strong cohort), GSE3037 (weak paired cohort)
-- Runs: 10 per scenario
+- Script: `scripts/geo_utility_proof.py`
+- Data:
+  - GSE32707: stronger ARDS cohort
+  - GSE3037: weaker paired LPS/control cohort
+- Runs: 4 per scenario
 - Scenarios:
-  - mixed_noise: 3% missing + 10% gaussian noise + 1% outliers
-  - high_missingness: 25% missing only
+  - `mixed_noise`: 3% missing + 10% gaussian noise + 1% outliers
+  - `high_missingness`: 25% missing only
+  - `structured_batch_noise`: missingness + gaussian noise + outliers + synthetic batch shift + block missingness
+  - `extreme_corruption`: higher missingness, noise, outliers, larger batch shift, larger block missingness
+- Preprocessing methods:
+  - `baseline`
+  - `minimal_imputation`
+  - `knn_imputation`
+  - `variance_stabilizing`
+  - `quantile_normalization`
+  - `combat_like`
 - Metrics:
   - Spearman correlation of log2FC vs clean reference
   - Jaccard overlap of significant genes
-  - Absolute difference in significant-gene count vs reference
+  - Pathway top-set Jaccard overlap
+  - Pathway score Spearman correlation
+  - Signal-to-noise ratio before and after preprocessing
 
-## Main findings
+## Main Findings
 
-1. Quality-separation result still holds strongly.
-- GSE32707 retains large corrected signal in strict analysis.
-- GSE3037 remains low-confidence under FDR and mainly raw-p-value driven.
+1. Quality separation remains strong.
+- GSE32707 still carries a large reproducible reference signal.
+- GSE3037 remains weaker and more fragile under strict inference.
 
-2. Current cleaning step (median imputation only) did **not** outperform baseline in this stress test.
-- In both scenarios, cleaned path was similar or slightly worse on stability metrics.
+2. KNN imputation is the strongest overall method.
+- On GSE32707 under `high_missingness`, KNN increased gene-level Jaccard from `0.511` to `0.781`.
+- On GSE32707 under `extreme_corruption`, KNN increased gene-level Jaccard from `0.151` to `0.711`.
+- On `structured_batch_noise`, KNN also gave the best balance of gene-level and pathway-level stability.
 
-3. Practical interpretation:
-- Our current value is strongest as a **reproducible quality gate** and conservative statistical filter.
-- The "data cleaning improves DEG stability" claim is **not yet supported** by this stress test.
+3. Higher SNR alone is not enough.
+- `variance_stabilizing` often produced the largest SNR gains, but it also damaged DEG overlap and biological fidelity.
+- `combat_like` correction was not stable enough to use as a default preprocessing step.
 
-## Evidence files
+4. Practical interpretation.
+- ReproLab now has a stronger utility claim than before: it is both a reproducible quality gate and a useful robustness evaluation framework.
+- The current best-supported preprocessing upgrade is KNN imputation, not generic normalization by default.
 
-- utility_proof_results.json
-- analysis_outputs/GSE32707_mixed_noise_baseline_runs_runs.csv
-- analysis_outputs/GSE32707_mixed_noise_cleaned_runs_runs.csv
-- analysis_outputs/GSE32707_high_missingness_baseline_runs_runs.csv
-- analysis_outputs/GSE32707_high_missingness_cleaned_runs_runs.csv
-- analysis_outputs/GSE3037_mixed_noise_baseline_runs_runs.csv
-- analysis_outputs/GSE3037_mixed_noise_cleaned_runs_runs.csv
-- analysis_outputs/GSE3037_high_missingness_baseline_runs_runs.csv
-- analysis_outputs/GSE3037_high_missingness_cleaned_runs_runs.csv
+## Evidence Files
+
+- `results/benchmarks/utility_proof_results.json`
+- `results/robustness/` (all per-run outputs)
+- `docs/ReproLab_feedback_followup_summary_2026-04-06.docx`
 
 ## Decision
 
-- Keep current benchmark outputs for transparency.
-- Position current system as: reproducibility and quality-control framework.
-- Next technical step: implement and validate a stronger normalization/denoising module before claiming cleaning lift.
+- Keep KNN imputation as the most promising preprocessing direction.
+- Keep pathway-level consistency metrics in the benchmark because they catch failures that SNR alone misses.
+- Position current system as a reproducibility, quality-control, and robustness-evaluation framework with a defensible utility story under corruption.

@@ -289,6 +289,28 @@ Benchmark output columns:
 - residual_errors
 - preprocessing_time_sec
 
+### Expanded GEO Utility Validation
+
+The repository also includes a real-data robustness benchmark built around GEO datasets `GSE32707` and `GSE3037`.
+
+The follow-up validation now covers:
+
+- Multiple corruption regimes: mixed noise, high missingness, structured batch noise, and extreme corruption
+- Multiple preprocessing paths: baseline, median imputation, KNN imputation, variance-stabilizing transform, quantile normalization, and ComBat-like correction
+- Multiple evaluation layers: gene-level stability, pathway-level consistency, and signal-to-noise ratio tracking
+
+Current takeaway:
+
+- Quality-gating remains strong.
+- KNN imputation is the best-performing robustness method in the expanded benchmark.
+- Higher SNR alone is not enough; some normalization methods improve SNR numerically while degrading biological fidelity.
+
+Primary outputs:
+
+- [results/benchmarks/utility_proof_results.json](results/benchmarks/utility_proof_results.json)
+- [docs/utility_proof_summary.md](docs/utility_proof_summary.md)
+- [results/robustness](results/robustness)
+
 ### Preliminary Data Package
 
 Generate grant-aligned outputs:
