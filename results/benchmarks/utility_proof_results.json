@@ -12,7 +12,12 @@
         "gaussian_noise_rate": 0.0,
         "outlier_rate": 0.0
       }
-    }
+    },
+    "preprocessing_methods": [
+      "baseline",
+      "minimal_imputation",
+      "quantile_normalization"
+    ]
   },
   "GSE32707_reference_sig_count_fdr": 3424,
   "GSE3037_reference_sig_count_raw": 499,
@@ -23,13 +28,28 @@
           "mean_spearman_log2fc": 0.9850779840787697,
           "mean_jaccard_significant": 0.917232315220159,
           "mean_abs_sig_count_delta": 93.4,
-          "mean_test_sig_count": 3330.6
+          "mean_test_sig_count": 3330.6,
+          "mean_snr_before": 4.870231619497455,
+          "mean_snr_after": 4.870231619497455,
+          "snr_improvement_ratio": 1.0
         },
-        "cleaned": {
+        "minimal_imputation": {
           "mean_spearman_log2fc": 0.9849059962772833,
           "mean_jaccard_significant": 0.9142438435063399,
           "mean_abs_sig_count_delta": 104.5,
-          "mean_test_sig_count": 3319.5
+          "mean_test_sig_count": 3319.5,
+          "mean_snr_before": 4.870231619497455,
+          "mean_snr_after": 4.939632333358867,
+          "snr_improvement_ratio": 1.0142499821945992
+        },
+        "quantile_normalization": {
+          "mean_spearman_log2fc": 0.5752190665421072,
+          "mean_jaccard_significant": 0.07602855245251763,
+          "mean_abs_sig_count_delta": 3032.0,
+          "mean_test_sig_count": 392.0,
+          "mean_snr_before": 4.870231619497455,
+          "mean_snr_after": 4.014342895818762,
+          "snr_improvement_ratio": 0.8242611870342608
         }
       },
       "GSE3037": {
@@ -37,13 +57,28 @@
           "mean_spearman_log2fc": 0.8796289231547612,
           "mean_jaccard_significant": 0.7369953725170918,
           "mean_abs_sig_count_delta": 14.1,
-          "mean_test_sig_count": 485.5
+          "mean_test_sig_count": 485.5,
+          "mean_snr_before": 6.739039470972865,
+          "mean_snr_after": 6.739039470972865,
+          "snr_improvement_ratio": 1.0
         },
-        "cleaned": {
+        "minimal_imputation": {
           "mean_spearman_log2fc": 0.8575426982218799,
           "mean_jaccard_significant": 0.7162110897870468,
           "mean_abs_sig_count_delta": 18.7,
-          "mean_test_sig_count": 480.3
+          "mean_test_sig_count": 480.3,
+          "mean_snr_before": 6.739039470972865,
+          "mean_snr_after": 6.839342196155464,
+          "snr_improvement_ratio": 1.014883831088189
+        },
+        "quantile_normalization": {
+          "mean_spearman_log2fc": 0.39396995027988824,
+          "mean_jaccard_significant": 0.18255817015258463,
+          "mean_abs_sig_count_delta": 282.1,
+          "mean_test_sig_count": 781.1,
+          "mean_snr_before": 6.739039470972865,
+          "mean_snr_after": 9.618640778145227,
+          "snr_improvement_ratio": 1.4273014454917052
         }
       }
     },
@@ -53,13 +88,28 @@
           "mean_spearman_log2fc": 0.883884119763921,
           "mean_jaccard_significant": 0.5109077691188488,
           "mean_abs_sig_count_delta": 1434.0,
-          "mean_test_sig_count": 1990.0
+          "mean_test_sig_count": 1990.0,
+          "mean_snr_before": 5.086554273608291,
+          "mean_snr_after": 5.086554273608291,
+          "snr_improvement_ratio": 1.0
         },
-        "cleaned": {
+        "minimal_imputation": {
           "mean_spearman_log2fc": 0.8836912157464841,
           "mean_jaccard_significant": 0.4460653154202183,
           "mean_abs_sig_count_delta": 1698.6,
-          "mean_test_sig_count": 1725.4
+          "mean_test_sig_count": 1725.4,
+          "mean_snr_before": 5.086554273608291,
+          "mean_snr_after": 5.822775113351544,
+          "snr_improvement_ratio": 1.1447386187469093
+        },
+        "quantile_normalization": {
+          "mean_spearman_log2fc": 0.3793313963915432,
+          "mean_jaccard_significant": 0.0003500756108464567,
+          "mean_abs_sig_count_delta": 3420.5,
+          "mean_test_sig_count": 3.5,
+          "mean_snr_before": 5.086554273608291,
+          "mean_snr_after": 2.286693798843058,
+          "snr_improvement_ratio": 0.4495565516144443
         }
       },
       "GSE3037": {
@@ -67,13 +117,28 @@
           "mean_spearman_log2fc": 0.7024618967407397,
           "mean_jaccard_significant": 0.25287495034966934,
           "mean_abs_sig_count_delta": 194.5,
-          "mean_test_sig_count": 304.5
+          "mean_test_sig_count": 304.5,
+          "mean_snr_before": 7.959021085324321,
+          "mean_snr_after": 7.959021085324321,
+          "snr_improvement_ratio": 1.0
         },
-        "cleaned": {
+        "minimal_imputation": {
           "mean_spearman_log2fc": 0.6384907721592009,
           "mean_jaccard_significant": 0.2530903971500117,
           "mean_abs_sig_count_delta": 203.5,
-          "mean_test_sig_count": 295.5
+          "mean_test_sig_count": 295.5,
+          "mean_snr_before": 7.959021085324321,
+          "mean_snr_after": 9.164203443761753,
+          "snr_improvement_ratio": 1.151423440837426
+        },
+        "quantile_normalization": {
+          "mean_spearman_log2fc": 0.1376795394984121,
+          "mean_jaccard_significant": 0.026146781253877767,
+          "mean_abs_sig_count_delta": 126.4,
+          "mean_test_sig_count": 625.4,
+          "mean_snr_before": 7.959021085324321,
+          "mean_snr_after": 1.6247925675179313,
+          "snr_improvement_ratio": 0.20414477485351742
         }
       }
     }
