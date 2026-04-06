@@ -23,6 +23,8 @@ class PreprocessingConfig:
     date_columns: tuple[str, ...] = ("event_date", "visit_date", "lab_date")
     unit_columns: tuple[str, ...] = ("glucose_mg_dl",)
     categorical_columns: tuple[str, ...] = ("diagnosis_code", "adverse_event")
+    numeric_imputation_strategy: str = "median"
+    knn_neighbors: int = 3
 
 
 class DataPreprocessor:
@@ -73,6 +75,8 @@ class DataPreprocessor:
         self, df: pd.DataFrame
     ) -> tuple[pd.DataFrame, list[CorrectionRecord]]:
         logs: list[CorrectionRecord] = []
+        numeric_frame = df.select_dtypes(include=[np.number]).copy()
+
         for col in df.columns:
             series = df[col]
             missing = series.isna()
@@ -80,11 +84,29 @@ class DataPreprocessor:
                 continue
 
             if pd.api.types.is_numeric_dtype(series):
-                replacement = float(series.median()) if series.notna().any() else 0.0
-            else:
-                mode = series.mode(dropna=True)
-                replacement = mode.iloc[0] if not mode.empty else "UNKNOWN"
+                replacements, rationale, confidence = self._numeric_replacements(
+                    df, numeric_frame, col
+                )
+                for idx in df.index[missing]:
+                    replacement = float(replacements.loc[idx])
+                    logs.append(
+                        CorrectionRecord(
+                            row_index=int(idx),
+                            column=col,
+                            original_value=None,
+                            corrected_value=replacement,
+                            constraint_name="missing_value_imputation",
+                            rationale=rationale,
+                            confidence=confidence,
+                        )
+                    )
+                    df.at[idx, col] = replacement
+                    if col in numeric_frame.columns:
+                        numeric_frame.at[idx, col] = replacement
+                continue
 
+            mode = series.mode(dropna=True)
+            replacement = mode.iloc[0] if not mode.empty else "UNKNOWN"
             for idx in df.index[missing]:
                 logs.append(
                     CorrectionRecord(
@@ -99,6 +121,71 @@ class DataPreprocessor:
                 )
             df.loc[missing, col] = replacement
         return df, logs
+
+    def _numeric_replacements(
+        self, df: pd.DataFrame, numeric_frame: pd.DataFrame, column: str
+    ) -> tuple[pd.Series, str, float]:
+        series = pd.to_numeric(df[column], errors="coerce")
+        median = float(series.median()) if series.notna().any() else 0.0
+
+        if self.config.numeric_imputation_strategy != "knn":
+            filled = series.fillna(median)
+            return (
+                filled,
+                "Filled missing numeric value using deterministic column median.",
+                0.85,
+            )
+
+        filled = self._knn_impute_numeric_column(numeric_frame, column, median)
+        return (
+            filled,
+            "Filled missing numeric value using deterministic row-level KNN imputation with median fallback.",
+            0.88,
+        )
+
+    def _knn_impute_numeric_column(
+        self, numeric_frame: pd.DataFrame, column: str, fallback: float
+    ) -> pd.Series:
+        series = pd.to_numeric(numeric_frame[column], errors="coerce")
+        if series.notna().all():
+            return series
+
+        features = numeric_frame.drop(columns=[column], errors="ignore").apply(
+            pd.to_numeric, errors="coerce"
+        )
+        out = series.copy()
+
+        for idx in series.index[series.isna()]:
+            neighbor_vals: list[tuple[float, float]] = []
+            target_features = features.loc[idx] if not features.empty else pd.Series(dtype=float)
+
+            for other_idx in series.index:
+                if other_idx == idx or pd.isna(series.loc[other_idx]):
+                    continue
+                if features.empty:
+                    neighbor_vals.append((0.0, float(series.loc[other_idx])))
+                    continue
+
+                candidate = features.loc[other_idx]
+                overlap = target_features.notna() & candidate.notna()
+                if not overlap.any():
+                    continue
+
+                diff = target_features.loc[overlap] - candidate.loc[overlap]
+                distance = float(np.sqrt(np.mean(np.square(diff.to_numpy(dtype=float)))))
+                neighbor_vals.append((distance, float(series.loc[other_idx])))
+
+            if not neighbor_vals:
+                out.loc[idx] = fallback
+                continue
+
+            neighbor_vals.sort(key=lambda item: (item[0], item[1]))
+            chosen = neighbor_vals[: max(1, self.config.knn_neighbors)]
+            weights = np.array([1.0 / (dist + 1e-6) for dist, _ in chosen], dtype=float)
+            values = np.array([value for _, value in chosen], dtype=float)
+            out.loc[idx] = float(np.average(values, weights=weights))
+
+        return out.fillna(fallback)
 
     def _standardize_formatting(
         self, df: pd.DataFrame

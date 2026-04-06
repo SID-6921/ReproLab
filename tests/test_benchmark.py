@@ -16,4 +16,7 @@ def test_benchmark_outputs_required_metrics() -> None:
         "preprocessing_time_sec",
     }
     assert required.issubset(set(out.columns))
-    assert len(out) == 3
+    assert len(out) == 4
+    assert {"reprolab_median", "reprolab_knn", "manual_rule_of_thumb", "generic_tool"}.issubset(
+        set(out["strategy"])
+    )

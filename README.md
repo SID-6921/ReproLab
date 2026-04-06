@@ -289,6 +289,8 @@ Benchmark output columns:
 - residual_errors
 - preprocessing_time_sec
 
+Current benchmark strategies include both `reprolab_median` and `reprolab_knn` so the default deterministic pipeline can be compared directly with the stronger KNN-based numeric imputation path.
+
 ### Expanded GEO Utility Validation
 
 The repository also includes a real-data robustness benchmark built around GEO datasets `GSE32707` and `GSE3037`.
@@ -298,6 +300,8 @@ The follow-up validation now covers:
 - Multiple corruption regimes: mixed noise, high missingness, structured batch noise, and extreme corruption
 - Multiple preprocessing paths: baseline, median imputation, KNN imputation, variance-stabilizing transform, quantile normalization, and ComBat-like correction
 - Multiple evaluation layers: gene-level stability, pathway-level consistency, and signal-to-noise ratio tracking
+
+The core library now also supports configurable numeric imputation through `PreprocessingConfig`, with median imputation as the default and KNN imputation available as an explicit strategy for robustness-focused runs.
 
 Current takeaway:
 

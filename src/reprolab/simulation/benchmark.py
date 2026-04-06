@@ -9,6 +9,7 @@ import pandas as pd
 
 from ..constraints.clinical_rules import default_clinical_constraints
 from ..pipeline import ReproLabPipeline
+from ..preprocessing import PreprocessingConfig
 
 
 @dataclass
@@ -32,10 +33,30 @@ def run_preprocessing_benchmark(df: pd.DataFrame) -> pd.DataFrame:
     elapsed = time.perf_counter() - start
     rows.append(
         BenchmarkMetrics(
-            strategy="reprolab",
+            strategy="reprolab_median",
             data_integrity_score=_integrity_score(result.cleaned_data),
             error_correction_rate=_correction_rate(result.transformation_log, df),
             residual_errors=_residual_errors(result.cleaned_data),
+            preprocessing_time_sec=elapsed,
+        )
+    )
+
+    start = time.perf_counter()
+    knn_pipe = ReproLabPipeline(
+        constraints=default_clinical_constraints(),
+        preprocess_config=PreprocessingConfig(
+            numeric_imputation_strategy="knn",
+            knn_neighbors=3,
+        ),
+    )
+    knn_result = knn_pipe.run(df)
+    elapsed = time.perf_counter() - start
+    rows.append(
+        BenchmarkMetrics(
+            strategy="reprolab_knn",
+            data_integrity_score=_integrity_score(knn_result.cleaned_data),
+            error_correction_rate=_correction_rate(knn_result.transformation_log, df),
+            residual_errors=_residual_errors(knn_result.cleaned_data),
             preprocessing_time_sec=elapsed,
         )
     )
