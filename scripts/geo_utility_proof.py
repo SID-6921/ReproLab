@@ -280,6 +280,8 @@ def metric_from_result(
 
     ref_sig = set(ref_map.index[ref_map[sig_col]].tolist())
     tst_sig = set(tst_map.index[tst_map[sig_col]].tolist())
+    sig_intersection = ref_sig & tst_sig
+    sig_union = ref_sig | tst_sig
 
     ref_ps = pathway_scores(ref_df, pathways)
     tst_ps = pathway_scores(test_df, pathways)
@@ -303,6 +305,8 @@ def metric_from_result(
         "pathway_score_spearman": float(p_corr),
         "ref_sig_count": int(len(ref_sig)),
         "test_sig_count": int(len(tst_sig)),
+        "sig_overlap_count": int(len(sig_intersection)),
+        "sig_union_count": int(len(sig_union)),
         "abs_sig_count_delta": int(abs(len(ref_sig) - len(tst_sig))),
     }
 
@@ -366,8 +370,11 @@ def aggregate_metrics(rows: list[dict]) -> dict:
         "mean_jaccard_significant": float(np.mean([r["jaccard_significant"] for r in rows])),
         "mean_pathway_top_jaccard": float(np.mean([r["pathway_top_jaccard"] for r in rows])),
         "mean_pathway_score_spearman": float(np.mean([r["pathway_score_spearman"] for r in rows])),
+        "mean_ref_sig_count": float(np.mean([r["ref_sig_count"] for r in rows])),
         "mean_abs_sig_count_delta": float(np.mean([r["abs_sig_count_delta"] for r in rows])),
         "mean_test_sig_count": float(np.mean([r["test_sig_count"] for r in rows])),
+        "mean_sig_overlap_count": float(np.mean([r["sig_overlap_count"] for r in rows])),
+        "mean_sig_union_count": float(np.mean([r["sig_union_count"] for r in rows])),
     }
 
     if any("snr_before" in r for r in rows):
