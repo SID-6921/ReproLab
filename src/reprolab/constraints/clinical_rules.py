@@ -74,8 +74,14 @@ class DiagnosisBiomarkerConstraint(ClinicalConstraint):
             hba1c = row["hba1c_pct"]
             if pd.isna(hba1c):
                 continue
+
+            try:
+                hba1c_val = float(hba1c)
+            except ValueError:
+                continue
+
             is_diabetic = code.startswith(self.diabetic_codes)
-            if is_diabetic and float(hba1c) < self.hba1c_threshold:
+            if is_diabetic and hba1c_val < self.hba1c_threshold:
                 candidates.append(
                     CandidateCorrection(
                         row_index=int(idx),
@@ -86,7 +92,7 @@ class DiagnosisBiomarkerConstraint(ClinicalConstraint):
                         constraint_name=self.name,
                     )
                 )
-            elif (not is_diabetic) and float(hba1c) >= self.hba1c_threshold:
+            elif (not is_diabetic) and hba1c_val >= self.hba1c_threshold:
                 candidates.append(
                     CandidateCorrection(
                         row_index=int(idx),

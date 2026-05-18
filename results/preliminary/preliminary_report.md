@@ -1,34 +1,33 @@
 # ReproLab Preliminary Data Summary
 
-Generated: 2026-03-29T14:43:23.341252+00:00
+Generated: 2026-05-18T22:17:18.520159+00:00
 
 ## Study Setup
 
-- Base dataset rows: 600
-- Noisy dataset rows (with duplicates): 630
+- Real-world cohort dataset rows (MIMIC-IV extract): 546038
 - Pipeline: ReproLab default clinical constraints
 
 ## Results Supporting Specific Aims
 
 1. Reduction in missing data and inconsistencies
-- Missing ratio before: 0.0177
+- Missing ratio before: 0.1184
 - Missing ratio after: 0.0000
-- Inconsistencies before: 315
-- Inconsistencies after: 72
+- Inconsistencies before: 881049
+- Inconsistencies after: 479440
 
 2. Improvement in overall dataset quality
-- Quality score before: 0.7823
-- Quality score after: 0.9520
+- Quality score before: 0.2362
+- Quality score after: 0.6488
 
 3. Estimated time savings vs manual cleaning
-- Manual script runtime (baseline): 0.0059 s
-- ReproLab runtime: 0.0398 s
-- Estimated manual effort (20 sec per inconsistency): 6300.00 s
+- Manual script runtime (baseline): 1.0092 s
+- ReproLab runtime: 42.5065 s
+- Estimated manual effort (20 sec per inconsistency): 17620980.00 s
 - Estimated savings using ReproLab: 100.00%
 
 4. Downstream analysis stability example
-- Bootstrap SD of diabetic mean glucose before: 2.5583
-- Bootstrap SD of diabetic mean glucose after: 2.1544
+- Bootstrap SD of diabetic mean glucose before: 7.2643
+- Bootstrap SD of diabetic mean glucose after: 0.1909
 - Lower SD indicates more stable summary statistics after preprocessing.
 
 ## Output Files

@@ -6,3 +6,5 @@ __pycache__/
 .coverage
 .DS_Store
 .geo_cache/
+results/preliminary/*.csv
+data/*.csv
