@@ -80,12 +80,14 @@ def row_median_impute(expr: pd.DataFrame) -> pd.DataFrame:
 def signal_to_noise_ratio(expr: pd.DataFrame) -> float:
     arr = expr.to_numpy(dtype=float)
     snrs = []
+    eps = 1e-6
+    max_snr = 1e3
     for row in arr:
         valid = row[~np.isnan(row)]
         if len(valid) > 1:
             std_val = np.std(valid)
-            if std_val > 0:
-                snrs.append(np.abs(np.mean(valid)) / std_val)
+            snr_val = np.abs(np.mean(valid)) / max(std_val, eps)
+            snrs.append(float(min(snr_val, max_snr)))
     return float(np.mean(snrs)) if snrs else 0.0
 
 
